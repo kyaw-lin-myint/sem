@@ -25,9 +25,11 @@ jobs:
       - name: Build with Maven
         run: mvn package
 
-      - name: Build
-        run: docker build -t se_methods .
+      - name: Check target
+        run: ls -la target
 
+      - name: Build
+        run: docker build -t devopsimage .
       - name: Run image
         run: docker run --network se-methods --name devopscontainer se_methods
 
