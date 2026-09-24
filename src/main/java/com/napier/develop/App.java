@@ -140,6 +140,7 @@ public class App
                             + "Manager: " + emp.manager + "\n");
         }
     }
+
     /**
      * Get the current salary of all employees with a given role.
      * @param role The role/title to filter by (e.g. "Engineer")
@@ -186,10 +187,15 @@ public class App
 
         // Connect to database
         a.connect();
+
         // Get Employee
         Employee emp = a.getEmployee(255530);
         // Display results
         a.displayEmployee(emp);
+
+        // Get salaries by role
+        System.out.println("\n=== Engineer Salaries ===");
+        a.getSalariesByRole("Engineer");
 
         // Disconnect from database
         a.disconnect();
