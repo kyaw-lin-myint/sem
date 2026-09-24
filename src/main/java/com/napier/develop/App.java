@@ -140,6 +140,44 @@ public class App
                             + "Manager: " + emp.manager + "\n");
         }
     }
+    /**
+     * Get the current salary of all employees with a given role.
+     * @param role The role/title to filter by (e.g. "Engineer")
+     */
+    public void getSalariesByRole(String role)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
+                            + "FROM employees, salaries, titles "
+                            + "WHERE employees.emp_no = salaries.emp_no "
+                            + "AND employees.emp_no = titles.emp_no "
+                            + "AND salaries.to_date = '9999-01-01' "
+                            + "AND titles.to_date = '9999-01-01' "
+                            + "AND titles.title = '" + role + "' "
+                            + "ORDER BY employees.emp_no ASC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Print each result
+            while (rset.next())
+            {
+                int emp_no = rset.getInt("emp_no");
+                String first_name = rset.getString("first_name");
+                String last_name = rset.getString("last_name");
+                int salary = rset.getInt("salary");
+                System.out.println(emp_no + "\t" + first_name + "\t" + last_name + "\t" + salary);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get salary details");
+        }
+    }
 
     public static void main(String[] args)
     {
